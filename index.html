@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#F5F3EE">
+  <title>职业身份重塑 · H5成长系统</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap">
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="app">
+
+    <!-- 顶部状态栏 -->
+    <div class="status-bar">
+      <span id="statusTime">9:41</span>
+      <span style="display:flex;gap:6px;align-items:center;">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><path d="M1 6.5h2v3H1zM5 4.5h2v5H5zM9 2.5h2v7H9zM13 .5v9h-2v-9z"/></svg>
+        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="0.5" y="1.5" width="13" height="7" rx="1.5"/><rect x="14.5" y="3.5" width="1" height="3" rx="0.5" fill="currentColor"/><rect x="2" y="3" width="9" height="4" rx="0.5" fill="currentColor"/></svg>
+      </span>
+    </div>
+
+    <!-- 页面栈：所有页面在此切换 -->
+    <div class="page-stack" id="pageStack">
+
+      <!-- ========== 首页：成长仪表盘 ========== -->
+      <section class="page tab-page active" id="page-home" data-tab="home">
+        <div class="nav-bar">
+          <div class="nav-spacer"></div>
+          <div class="nav-title">成长仪表盘</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+
+          <!-- 阶段标签 -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div class="t-mark" id="homeStageLabel">尚未完成自查</div>
+              <div class="t-section" id="homeStageName" style="margin-top:2px;">完成首次自查，开启成长追踪</div>
+            </div>
+            <span class="tag tag-outline" id="homeWeekTag">第 1 周</span>
+          </div>
+
+          <!-- 成长值环形进度 -->
+          <div class="card" style="display:flex;align-items:center;gap:20px;padding:20px;margin-bottom:20px;">
+            <div class="progress-ring">
+              <svg width="140" height="140" viewBox="0 0 140 140">
+                <circle class="ring-bg" cx="70" cy="70" r="60"/>
+                <circle class="ring-fg" id="homeRingFg" cx="70" cy="70" r="60" stroke-dasharray="377" stroke-dashoffset="377"/>
+              </svg>
+              <div class="ring-center">
+                <div class="ring-value" id="homeRingValue">0</div>
+                <div class="ring-label">成长值</div>
+              </div>
+            </div>
+            <div style="flex:1;">
+              <div class="t-caption" style="margin-bottom:4px;">最近变化</div>
+              <div class="t-num" style="font-size:18px;color:var(--forest);" id="homeDelta">— —</div>
+              <div class="t-mark" style="margin-top:12px;">满分 80 · 当前阶段</div>
+              <div class="t-mark" id="homeStageShort" style="color:var(--ink-sec);">未定位</div>
+            </div>
+          </div>
+
+          <!-- 今日行动 -->
+          <div class="card" style="background:var(--charcoal);border-color:var(--charcoal);color:var(--paper);margin-bottom:20px;">
+            <div style="font-size:11px;color:rgba(245,243,238,0.6);letter-spacing:0.05em;margin-bottom:8px;">TODAY · 今日行动</div>
+            <div class="t-section" style="color:var(--paper);font-size:16px;line-height:1.5;" id="homeTodayAction">
+              今天完成一次 8 分钟自查，把当前困扰写进本周复盘。
+            </div>
+          </div>
+
+          <!-- 四宫格入口 -->
+          <div class="section">
+            <div class="section-title">
+              <h3>成长模块</h3>
+            </div>
+            <div class="grid-4 stagger">
+
+              <button class="entry-card" data-go="assessment-welcome">
+                <div class="entry-icon">
+                  <svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M2 12h6m8 0h6M5 5l3 3m8 8l3 3M19 5l-3 3m-8 8l-3 3"/></svg>
+                </div>
+                <div class="entry-name">职业思维自查</div>
+                <div class="entry-desc">四维度量表 · 约5分钟</div>
+              </button>
+
+              <button class="entry-card" data-go="weekly-review">
+                <div class="entry-icon">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg>
+                </div>
+                <div class="entry-name">阶段性复盘</div>
+                <div class="entry-desc">周复盘 · 月复盘</div>
+              </button>
+
+              <button class="entry-card" data-go="guide-list">
+                <div class="entry-icon">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h12a2 2 0 0 1 2 2v14H6a2 2 0 0 1-2-2V4z"/><path d="M16 4h4v14a2 2 0 0 1-2 2H6"/><path d="M8 8h6M8 12h6"/></svg>
+                </div>
+                <div class="entry-name">心理调适指南</div>
+                <div class="entry-desc">情景化图文科普</div>
+              </button>
+
+              <button class="entry-card" data-go="library">
+                <div class="entry-icon">
+                  <svg viewBox="0 0 24 24"><path d="M4 7l4-4 4 4 4-4 4 4v13l-4-4-4 4-4-4-4 4V7z"/></svg>
+                </div>
+                <div class="entry-name">资源库</div>
+                <div class="entry-desc">模板 · 素材 · 经验</div>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- 最新更新 -->
+          <div class="section">
+            <div class="section-title">
+              <h3>最新更新</h3>
+              <span class="more" data-go="library">查看全部 ›</span>
+            </div>
+            <div class="stagger" id="homeLatestList">
+              <!-- JS 渲染 -->
+            </div>
+          </div>
+
+          <!-- 心理援助入口 -->
+          <div style="text-align:center;padding:8px 0 4px;">
+            <button class="btn-text" data-go="support">遇到持续情绪困扰？联系心理援助通道</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========== 资源库 ========== -->
+      <section class="page tab-page" id="page-library" data-tab="library">
+        <div class="nav-bar">
+          <div class="nav-spacer"></div>
+          <div class="nav-title">资源库</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="filter-bar" id="libraryFilter">
+          <button class="filter-chip active" data-cat="all">全部</button>
+          <button class="filter-chip" data-cat="template">作品集模板</button>
+          <button class="filter-chip" data-cat="material">行业素材</button>
+          <button class="filter-chip" data-cat="article">求职经验</button>
+        </div>
+
+        <div class="content">
+          <div id="libraryList" class="stagger">
+            <!-- JS 渲染 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 我的 ========== -->
+      <section class="page tab-page" id="page-profile" data-tab="profile">
+        <div class="nav-bar">
+          <div class="nav-spacer"></div>
+          <div class="nav-title">我的</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+
+          <div class="profile-head">
+            <div class="profile-avatar">职</div>
+            <div class="profile-name">职场新人</div>
+            <div class="profile-stat">
+              <div class="profile-stat-item">
+                <div class="profile-stat-num" id="profileReviewCount">0</div>
+                <div class="profile-stat-label">复盘记录</div>
+              </div>
+              <div class="profile-stat-item">
+                <div class="profile-stat-num" id="profileFavCount">0</div>
+                <div class="profile-stat-label">收藏</div>
+              </div>
+              <div class="profile-stat-item">
+                <div class="profile-stat-num" id="profileAssessCount">0</div>
+                <div class="profile-stat-label">自查次数</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>我的记录</h3></div>
+            <div style="background:var(--card);border-radius:var(--r-card);overflow:hidden;">
+              <button class="menu-cell" data-go="weekly-review">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 2v4M16 2v4"/></svg></span>
+                <span class="menu-cell-text">复盘记录</span>
+                <span class="menu-cell-value" id="profileReviewSub">0 条</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+              <button class="menu-cell" data-go="library">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></span>
+                <span class="menu-cell-text">我的收藏</span>
+                <span class="menu-cell-value" id="profileFavSub">0 项</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+              <button class="menu-cell" data-go="assessment-welcome">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/></svg></span>
+                <span class="menu-cell-text">重新自查</span>
+                <span class="menu-cell-value">第 1 次</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>设置</h3></div>
+            <div style="background:var(--card);border-radius:var(--r-card);overflow:hidden;">
+              <button class="menu-cell" data-go="settings">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8l2.8-2.8M17 7l2.8-2.8"/></svg></span>
+                <span class="menu-cell-text">通用设置</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+              <button class="menu-cell" data-go="support">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zM8 12h8"/></svg></span>
+                <span class="menu-cell-text">心理援助通道</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+              <button class="menu-cell" data-go="disclaimer">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></span>
+                <span class="menu-cell-text">隐私与免责声明</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="t-mark text-center" style="padding:16px 0;">版本 1.0.0 · 内测版</div>
+
+        </div>
+      </section>
+
+      <!-- ========== 自查欢迎页 ========== -->
+      <section class="page" id="page-assessment-welcome">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">职业思维自查</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div class="assessment-welcome">
+            <div class="welcome-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div class="t-display" style="font-size:24px;">四维度身份定位</div>
+            <p class="t-caption" style="margin-top:12px;max-width:280px;margin-left:auto;margin-right:auto;">
+              通过 20 道第一人称陈述题，帮助你定位当前职业身份阶段，并生成一条可执行建议。
+            </p>
+
+            <div class="welcome-meta">
+              <span class="welcome-meta-item">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                约 5 分钟
+              </span>
+              <span class="welcome-meta-item">
+                <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                20 题
+              </span>
+              <span class="welcome-meta-item">
+                <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                匿名 · 仅本机
+              </span>
+            </div>
+
+            <div class="card" style="background:var(--paper-2);border-color:var(--paper-2);text-align:left;margin-bottom:24px;">
+              <div class="t-section" style="font-size:14px;margin-bottom:8px;">四维度</div>
+              <div class="t-caption" style="line-height:2;">
+                <span style="color:var(--forest);">身份认知</span> · 
+                <span style="color:var(--forest);">行为习惯</span> · 
+                <span style="color:var(--forest);">心理韧性</span> · 
+                <span style="color:var(--forest);">成长规划</span>
+              </div>
+            </div>
+
+            <div class="card" style="background:var(--brass-bg);border-color:var(--brass-bg);text-align:left;margin-bottom:28px;">
+              <div class="t-section" style="font-size:13px;color:var(--warning);margin-bottom:4px;">边界提示</div>
+              <p class="t-mark" style="color:var(--ink);font-size:12px;line-height:1.6;">
+                本工具用于自我认知参考，不构成心理测评与诊断。如有需要请通过页面内通道联系专业机构。
+              </p>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" data-start-quiz>开始自查</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 自查答题页 ========== -->
+      <section class="page" id="page-assessment-quiz">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">职业思维自查</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="quiz-body">
+          <div class="quiz-progress">
+            <div class="quiz-meta">
+              <span id="quizIndex">第 1 / 20 题</span>
+              <span id="quizDimLabel">身份认知</span>
+            </div>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-bar-fill" id="quizProgressBar" style="width:5%;"></div>
+            </div>
+          </div>
+
+          <div class="quiz-question">
+            <div class="quiz-dim" id="quizDim">DIM 01 · 身份认知</div>
+            <div class="quiz-text" id="quizText">我能说清自己作为职场人的价值点。</div>
+          </div>
+
+          <div class="quiz-options" id="quizOptions">
+            <!-- JS 渲染 -->
+          </div>
+        </div>
+
+        <div class="quiz-footer">
+          <button class="btn btn-secondary" id="quizPrev" style="flex:1;">上一题</button>
+          <button class="btn btn-primary" id="quizNext" style="flex:1;" disabled>下一题</button>
+        </div>
+      </section>
+
+      <!-- ========== 自查结果报告页 ========== -->
+      <section class="page" id="page-assessment-result">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">结果报告</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div class="result-header">
+            <div class="result-stage" id="resultStage">— —</div>
+            <div class="result-score">
+              <span id="resultScore">0</span><span class="result-score-max"> / 80</span>
+            </div>
+            <div class="result-stage-desc" id="resultStageDesc">请完成自查后查看阶段判定</div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>维度得分</h3></div>
+            <div id="resultDimBars">
+              <!-- JS 渲染 -->
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>核心建议</h3></div>
+            <div class="card" id="resultAdvice">
+              <!-- JS 渲染 -->
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="card" style="background:var(--brass-bg);border-color:var(--brass-bg);">
+              <div class="t-section" style="font-size:13px;color:var(--warning);margin-bottom:4px;">免责声明</div>
+              <p class="t-mark" style="color:var(--ink);font-size:12px;line-height:1.7;">
+                本工具用于自我认知参考，不构成心理测评与诊断，如有需要请通过页面内通道联系专业机构。
+              </p>
+              <button class="btn-text" data-go="support" style="margin-top:8px;display:inline-flex;">查看心理援助通道</button>
+            </div>
+          </div>
+
+          <div style="padding:8px 0 24px;display:flex;gap:12px;">
+            <button class="btn btn-secondary" style="flex:1;" data-go="weekly-review">写本周复盘</button>
+            <button class="btn btn-primary" style="flex:1;" data-go="home">返回首页</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 周复盘页 ========== -->
+      <section class="page" id="page-weekly-review">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">周复盘</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div style="padding:8px 0 20px;">
+            <div class="t-mark" id="reviewDate">本周 · 第 N 周</div>
+            <div class="t-section" style="margin-top:4px;">用四段模板回顾本周</div>
+          </div>
+
+          <div class="review-section">
+            <div class="review-label"><span class="num-mark">01</span>本周完成</div>
+            <textarea class="review-textarea" data-review-field="done" placeholder="列出本周实际交付或推进的事项，越具体越好。"></textarea>
+          </div>
+
+          <div class="review-section">
+            <div class="review-label"><span class="num-mark">02</span>身份转变尝试</div>
+            <textarea class="review-textarea" data-review-field="try" placeholder="记录一次从学生思维转向职业思维的具体动作。"></textarea>
+          </div>
+
+          <div class="review-section">
+            <div class="review-label"><span class="num-mark">03</span>遇到的卡点</div>
+            <textarea class="review-textarea" data-review-field="block" placeholder="本周哪些场景让你感到困难？写下当时的具体情境。"></textarea>
+          </div>
+
+          <div class="review-section">
+            <div class="review-label"><span class="num-mark">04</span>下周一个行动</div>
+            <textarea class="review-textarea" data-review-field="next" placeholder="下周只承诺一件具体可验证的事。"></textarea>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg" id="reviewSaveBtn" style="margin-top:8px;">保存复盘 · 成长值 +2</button>
+
+          <div class="t-mark text-center" style="margin-top:16px;line-height:1.6;">
+            保存后更新首页成长值<br>所有记录仅保存在本机
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 指南列表页 ========== -->
+      <section class="page" id="page-guide-list">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">心理调适指南</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div style="padding:8px 0 16px;">
+            <div class="t-section">过渡期常见议题</div>
+            <div class="t-caption" style="margin-top:4px;">情景化图文 · 持续更新</div>
+          </div>
+
+          <div class="stagger" id="guideList">
+            <!-- JS 渲染 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 指南详情页 ========== -->
+      <section class="page" id="page-guide-detail">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">指南</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content" id="guideDetail">
+          <!-- JS 渲染 -->
+        </div>
+      </section>
+
+      <!-- ========== 心理援助通道页 ========== -->
+      <section class="page" id="page-support">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">心理援助通道</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="support-banner">
+          <h3>本页仅提供就业科普与自我认知引导</h3>
+          <p>本产品不提供心理咨询、诊断与治疗服务；心理相关内容不替代专业评估。如需专业支持，请通过下方高校官方公益渠道联系。</p>
+        </div>
+
+        <div class="content">
+          <div class="section">
+            <div class="section-title"><h3>高校官方公益资源</h3></div>
+            <div class="t-caption" style="margin-bottom:12px;">名单需与校方确认后上线，以下为通用示例，请以校方公告为准。</div>
+
+            <div class="support-card">
+              <div class="sc-name">学校心理健康教育与咨询中心</div>
+              <div class="sc-info">预约方式：学生服务大厅线下登记 / 官方公众号<br>开放时间：周一至周五 09:00–17:00<br>面向：在校生与毕业半年内校友</div>
+              <div class="sc-action">
+                <button class="btn btn-secondary" style="padding:8px 16px;font-size:13px;">查看预约说明</button>
+              </div>
+            </div>
+
+            <div class="support-card">
+              <div class="sc-name">全国统一心理援助热线</div>
+              <div class="sc-info">24 小时接听 · 全国通用 · 通话免费<br>面向：所有需要倾诉与支持的人</div>
+              <div class="sc-action">
+                <button class="btn btn-primary" style="padding:8px 16px;font-size:13px;">立即拨打</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>紧急情况</h3></div>
+            <div class="card" style="background:var(--brass-bg);border-color:var(--brass-bg);">
+              <p class="t-body" style="font-size:13px;line-height:1.7;color:var(--ink);">
+                涉及人身安全时，请优先拨打 <span class="t-num" style="color:var(--warning);">110</span> 或 <span class="t-num" style="color:var(--warning);">120</span>，并联系校方保卫处。
+              </p>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>使用边界</h3></div>
+            <p class="t-caption" style="line-height:1.8;">
+              · 本页不展示任何商业咨询机构<br>
+              · 不采集任何可识别个人身份的信息<br>
+              · 所有信息以官方公布为准，上线前需校方确认<br>
+              · 本页文案安静直接，不使用渲染性措辞
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 设置页 ========== -->
+      <section class="page" id="page-settings">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">设置</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div class="section">
+            <div class="section-title"><h3>显示</h3></div>
+            <div style="background:var(--card);border-radius:var(--r-card);overflow:hidden;">
+              <div class="menu-cell">
+                <span class="menu-cell-text">字体大小</span>
+                <span class="menu-cell-value" id="fontSizeValue">标准</span>
+                <span class="menu-cell-arrow">›</span>
+              </div>
+              <button class="menu-cell" id="reduceMotionToggle">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><path d="M12 2v6m0 8v6M2 12h6m8 0h6"/></svg></span>
+                <span class="menu-cell-text">减弱动效</span>
+                <span class="menu-cell-value" id="reduceMotionValue">关闭</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>数据</h3></div>
+            <div style="background:var(--card);border-radius:var(--r-card);overflow:hidden;">
+              <button class="menu-cell" id="clearDataBtn">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></span>
+                <span class="menu-cell-text">清除本机数据</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title"><h3>关于</h3></div>
+            <div style="background:var(--card);border-radius:var(--r-card);overflow:hidden;">
+              <button class="menu-cell" data-go="disclaimer">
+                <span class="menu-cell-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></span>
+                <span class="menu-cell-text">隐私与免责声明</span>
+                <span class="menu-cell-arrow">›</span>
+              </button>
+              <div class="menu-cell">
+                <span class="menu-cell-text">版本</span>
+                <span class="menu-cell-value">1.0.0 · 内测</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 隐私与免责声明页 ========== -->
+      <section class="page" id="page-disclaimer">
+        <div class="nav-bar">
+          <button class="nav-back" data-back><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <div class="nav-title">隐私与免责</div>
+          <div class="nav-spacer"></div>
+        </div>
+
+        <div class="content">
+          <div class="t-title" style="margin:8px 0 16px;">服务边界与隐私声明</div>
+
+          <div class="section">
+            <div class="t-section" style="font-size:15px;margin-bottom:6px;">服务边界</div>
+            <p class="t-body" style="font-size:13px;line-height:1.8;">
+              本产品仅提供就业科普与自我认知引导，不提供心理咨询、诊断与治疗服务；心理相关内容不替代专业评估。声明不可被关闭或跳过。
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="t-section" style="font-size:15px;margin-bottom:6px;">数据收集</div>
+            <p class="t-body" style="font-size:13px;line-height:1.8;">
+              自查答案与复盘记录默认仅存储于用户本机会话内，不上传服务器。本演示版本不采集任何个人信息，不接入第三方统计 SDK。
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="t-section" style="font-size:15px;margin-bottom:6px;">内容合规</div>
+            <p class="t-body" style="font-size:13px;line-height:1.8;">
+              全平台文案不使用夸大、恐吓或贩卖焦虑的措辞。心理援助页仅提供高校官方公益渠道，不展示任何商业咨询机构。涉及健康信息以公开科学共识为准。
+            </p>
+          </div>
+
+          <div class="section">
+            <div class="t-section" style="font-size:15px;margin-bottom:6px;">免责</div>
+            <p class="t-body" style="font-size:13px;line-height:1.8;">
+              本工具用于自我认知参考，不构成心理测评与诊断。如需专业支持，请通过页面内通道联系专业机构。
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ========== 底部 Tab 栏 ========== -->
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-item active" data-tab="home">
+        <span class="tab-icon"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"/></svg></span>
+        <span class="tab-label">首页</span>
+      </button>
+      <button class="tab-item" data-tab="library">
+        <span class="tab-icon"><svg viewBox="0 0 24 24"><path d="M4 7l4-4 4 4 4-4 4 4v13l-4-4-4 4-4-4-4 4V7z"/></svg></span>
+        <span class="tab-label">资源库</span>
+      </button>
+      <button class="tab-item" data-tab="profile">
+        <span class="tab-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg></span>
+        <span class="tab-label">我的</span>
+      </button>
+    </nav>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
